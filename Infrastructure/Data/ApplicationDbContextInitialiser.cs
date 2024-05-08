@@ -80,7 +80,7 @@ namespace Infrastructure.Data
             {
                 var filePath = _configuration["FilePath"];
 
-                if (!string.IsNullOrWhiteSpace(filePath))
+                if (File.Exists(filePath))
                 {
                     var studentsString = File.ReadAllText(filePath);
 
