@@ -1,4 +1,4 @@
-## Description of the "Enrex Test" REST API
+## Description of the "Enerex Test" REST API
 
 This is a .NET 7 Web API that provides a simple CRUD (Create, Read, Update, Delete) interface for managing student data. The API uses Entity Framework Core (EF Core) for database operations and an in-memory database for storage.
 
