@@ -2,11 +2,13 @@
 using Application.ApplicationServices.Maps;
 using Application.ApplicationServices.Validators;
 using Infrastructure.DataAccess.FilterOptions;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Web.Controllers
 {
+    /// <summary>
+    /// StudentController class for handling student-related requests
+    /// </summary>
     [Route("api/students")]
     [ApiController]
     public class StudentController : ControllerBase
@@ -14,12 +16,25 @@ namespace Web.Controllers
         private readonly IStudentService _studentService;
         private readonly StudentDtoValidator _validator;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="StudentController"/> class
+        /// </summary>
+        /// <param name="studentService">The student service for handling student-related operations</param>
+        /// <param name="validator">The validator for validating student DTOs</param>
         public StudentController(IStudentService studentService, StudentDtoValidator validator)
         {
             _studentService = studentService;
             _validator = validator;
         }
 
+        /// <summary>
+        /// Gets all students with optional filtering and pagination
+        /// </summary>
+        /// <param name="request">The filtering options for the students</param>
+        /// <param name="pageNumber">The page number to retrieve</param>
+        /// <param name="pageSize">The number of students to retrieve per page</param>
+        /// <returns>A list of students with pagination information</returns>
+        /// <response code="200">Success</response>
         [HttpGet]
         public async Task<IActionResult> GetAll([FromQuery] StudentFilterOptions? request = null, int pageNumber = 1, int pageSize = int.MaxValue)
         {
@@ -32,6 +47,14 @@ namespace Web.Controllers
             });
         }
 
+        /// <summary>
+        /// Creates a new student
+        /// </summary>
+        /// <param name="studentDto">The student DTO to create</param>
+        /// <returns>The created student</returns>
+        /// <response code="200">Success</response>
+        /// <response code="400">Bad request</response>
+        /// <response code="500">Internal server error</response>
         [HttpPost]
         public async Task<IActionResult> CreateStudent(StudentDto studentDto)
         {
@@ -55,6 +78,15 @@ namespace Web.Controllers
 
         }
 
+        /// <summary>
+        /// Updates an existing student
+        /// </summary>
+        /// <param name="id">The ID of the student to update</param>
+        /// <param name="studentDto">The updated student DTO</param>
+        /// <returns>The updated student</returns>
+        /// <response code="200">Success</response>
+        /// <response code="400">Bad request</response>
+        /// <response code="404">Not found</response>
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateStudent(int id, StudentDto studentDto)
         {
@@ -77,6 +109,13 @@ namespace Web.Controllers
             return NotFound(new { success = false, message = "Student not found" });
         }
 
+        /// <summary>
+        /// Deletes a student
+        /// </summary>
+        /// <param name="id">The ID of the student to delete</param>
+        /// <returns>A message indicating success</returns>
+        /// <response code="200">Success</response>
+        /// <response code="404">Not found</response>
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteStudent(int id)
         {

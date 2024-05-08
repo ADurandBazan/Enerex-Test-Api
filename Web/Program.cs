@@ -11,7 +11,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+//Registers application services in the DI container
 builder.Services.RegisterApplicationServices();
+//Registers infrastructure services in the DI container
 builder.Services.RegisterInfrastructureServices(builder.Configuration);
 
 var app = builder.Build();

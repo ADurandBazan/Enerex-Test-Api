@@ -4,22 +4,31 @@ using Infrastructure.Common.Utilities;
 using Infrastructure.Data;
 using Infrastructure.DataAccess.FilterOptions;
 using Infrastructure.DataAccess.IRepositories;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructure.DataAccess.Repositories
 {
+    /// <summary>
+    /// StudentRepository class for working with Student entities
+    /// </summary>
+    /// <seealso cref="Repository{Student}" />
+    /// <seealso cref="IStudentRepository" />
     public class StudentRepository : Repository<Student>, IStudentRepository
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="StudentRepository"/> class
+        /// </summary>
+        /// <param name="context">The context to use for database operations</param>
         public StudentRepository(IUnitOfWork<ApplicationDbContext> context) : base(context)
         {
-
         }
 
+        /// <summary>
+        /// Finds all students asynchronously with pagination and filtering options
+        /// </summary>
+        /// <param name="options">The filtering options for the students</param>
+        /// <param name="pageNumber">The page number to retrieve</param>
+        /// <param name="pageSize">The number of students to retrieve per page</param>
+        /// <returns>A PaginatedList of Students</returns>
         public async Task<PaginatedList<Student>> FindAllStudentsAsync(StudentFilterOptions? options = null, int pageNumber = 0, int pageSize = int.MaxValue)
         {
             IQueryable<Student> query = Entity.AsQueryable();

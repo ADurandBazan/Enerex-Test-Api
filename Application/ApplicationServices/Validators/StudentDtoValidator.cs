@@ -1,11 +1,5 @@
 ﻿using Application.ApplicationServices.Maps;
 using FluentValidation;
-using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.ApplicationServices.Validators
 {
@@ -35,10 +29,10 @@ namespace Application.ApplicationServices.Validators
                 .WithMessage("The gender is invalid.Only values 'F' or 'M' are allowed.");
 
             RuleFor(x => x.Age)
-               .GreaterThan(4)
-               .WithMessage("Age must be greater than 5.")
+               .GreaterThan(15)
+               .WithMessage("Age must be greater than 15.")
                .LessThan(80)
-               .WithMessage("Age must be less than 100.");
+               .WithMessage("Age must be less than 80.");
            
             RuleFor(x => x.AcademicYear)
                .GreaterThan(0)
@@ -52,7 +46,7 @@ namespace Application.ApplicationServices.Validators
 
         private bool IsGenderValid(StudentDto studentDto, string newValue)
         {
-           return newValue.ToLower().Equals("F") || newValue.ToLower().Equals("M");
+           return newValue.ToLower().Equals("f") || newValue.ToLower().Equals("m");
         }
 
     }
